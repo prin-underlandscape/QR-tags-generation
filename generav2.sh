@@ -21,20 +21,20 @@ do
   URL="$root"/"$1"/"$id"
   ( echo "$descr"; echo; echo "$URL" ) | qrencode -8 -s 6 -t PNG -o tmp.png
   convert \
-	-size 960x1300 canvas:$bg \
+	-size 960x1260 canvas:$bg \
 	logoEle_v2.2_small.png -geometry 150x150+30+30 -composite \
 	-size 720x150 -font Times-Roman -background $bg caption:"$name" -geometry +210+30 -composite \
 	-size 600x60 -font Times-Roman -background $bg caption:"$visita" -geometry +210+180 -composite \
 	tmp.png -geometry 900x+30+240 -composite \
-	-size 900x75 -font Times-Roman -background $bg caption:"$nota" -geometry +30+1100 -composite \
-	-size 900x75 -font Ubuntu-Mono -background $bg caption:"$credit" -geometry +30+1215 -composite \
+	-size 900x40 -font Times-Roman -background $bg caption:"$nota" -geometry +130+1150 -composite \
+	-size 900x75 -font Ubuntu-Mono -background $bg caption:"$credit" -geometry +30+1200 -composite \
     $1/$id.png
   rm tmp.png
 done
 
 }
 
-fn=20230430.geojson
+fn=$1
 bn=`basename $fn .geojson`
 
 if [ -d $bn ]; then rm -Rf $bn; fi
@@ -42,5 +42,5 @@ mkdir $bn
 
 python3 split_geojson.py $fn | mktags $bn
 
-montage -geometry 960x1320+120+120 -border 20 -frame 4 -label %d"-"%t -tile 5x3 $bn/*.png $bn.pdf
+montage -geometry 710x900+120+120 -border 20 -frame 4 -label %d"-"%t -tile 5x3 $bn/*.png $bn.png
 
