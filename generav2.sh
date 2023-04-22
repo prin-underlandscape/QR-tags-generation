@@ -21,13 +21,13 @@ do
   URL="$root"/"$1"/"$id"
   ( echo "$descr"; echo; echo "$URL" ) | qrencode -8 -s 6 -t PNG -o tmp.png
   convert \
-	-size 320x440 canvas:$bg \
-	logoEle_v2.2_small.png -geometry 50x50+10+10 -composite \
-	-size 240x50 -font Times-Roman -background $bg caption:"$name" -geometry +70+10 -composite \
-	-size 200x20 -font Times-Roman -background $bg caption:"$visita" -geometry +70+60 -composite \
-	tmp.png -geometry 300x+10+80 -composite \
-	-size 300x25 -font Times-Roman -background $bg caption:"$nota" -geometry +10+380 -composite \
-	-size 300x25 -font Ubuntu-Mono -background $bg caption:"$credit" -geometry +10+405 -composite \
+	-size 960x1300 canvas:$bg \
+	logoEle_v2.2_small.png -geometry 150x150+30+30 -composite \
+	-size 720x150 -font Times-Roman -background $bg caption:"$name" -geometry +210+30 -composite \
+	-size 600x60 -font Times-Roman -background $bg caption:"$visita" -geometry +210+180 -composite \
+	tmp.png -geometry 900x+30+240 -composite \
+	-size 900x75 -font Times-Roman -background $bg caption:"$nota" -geometry +30+1100 -composite \
+	-size 900x75 -font Ubuntu-Mono -background $bg caption:"$credit" -geometry +30+1215 -composite \
     $1/$id.png
   rm tmp.png
 done
