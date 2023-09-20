@@ -3,21 +3,19 @@
 visita="    Inquadra per maggiori informazioni"
 nota="Altri QR-code informativi in quest'area" 
 credit="Underlandscape\nProgetto di ricerca di Interesse Nazionale MIUR - 2021"
-root="https://sites.google.com/view/prin-underlandscape/home-page/itinerari/"
+root="https://sites.google.com/view/prin-underlandscape/home-page/itinerari"
 bg="lightgray"
 
 mktags() {
-
-echo $1
 
 while read -r line
 do
   id=`echo $line | cut -f1 -d"|"`
   name=`echo $line | cut -f2 -d"|"`
   descr=`echo $line | cut -f3 -d"|"`
-  echo $id
-  echo $name
-  echo $descr
+#  echo $id
+  echo "- $name"
+#  echo $descr
   URL="$root"/"$1"/"$id"
   ( echo "$descr"; echo; echo "$URL" ) | qrencode -8 -s 6 -t PNG -o tmp.png
   convert \
@@ -37,10 +35,21 @@ done
 fn=$1
 bn=`basename $fn .geojson`
 
+echo "Creating backup for $1"
+cp $fn $fn-backup.geojson
+
+echo "Creating QR-codes for $1"
 if [ -d $bn ]; then rm -Rf $bn; fi
 mkdir $bn
-
 python3 split_geojson.py $fn | mktags $bn
 
+echo "Assembling A3 image of QRcodes (5*3)"
 montage -geometry 710x900+120+120 -border 20 -frame 4 -label %d"-"%t -tile 5x3 $bn/*.png $bn.png
+
+echo "Create GPX file for import in GaiaGPS"
+ogr2ogr -dsco GPX_USE_EXTENSIONS=YES -f GPX $bn.gpx $bn.geojson
+
+echo "Create GPKG file for import in SMASH"
+ogr2ogr  -select "description,name" -f GPKG $bn.gpkg $bn.geojson
+
 
