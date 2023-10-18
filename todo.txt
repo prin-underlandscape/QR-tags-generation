@@ -1,0 +1,6 @@
+todo list
+
+-) gestire capienza titolo
+-) inserire link nell'interfaccia e nel qr-code (LoR2)
+-) estetica pagina
+-) eliminare funzioni libreria non utilizzare e aggiungere credits
