@@ -1,13 +1,6 @@
 <body>
-
-<table cellspacing="0" cellpadding="0">
-<tr>
-<td><svg id = 'x1' width = '715px' height = '860px'></svg></td>
-<td><svg id = 'x2' width = '715px' height = '860px'></svg></td>
-<td><svg id = 'x3' width = '715px' height = '860px'></svg></td>
-<td><svg id = 'x4' width = '715px' height = '860px'></svg></td>
-</tr>
-</table>
+   
+<input id="fileName" type="file" ></input>
 
 </body>
 
@@ -816,14 +809,14 @@ function textsvg(data,parent) {
    svg.setAttribute( 'x',data.x );
    svg.setAttribute( 'y',data.y );
    data.width ??= 0;
-   svg.setAttributeNS( null,'width',data.width );
+   svg.setAttribute( 'width',data.width );
    data.height ??= 0;
-   svg.setAttributeNS( null,'height',data.height );
+   svg.setAttribute( 'height',data.height );
    data.fill ??= '#000000';
-   svg.setAttributeNS( null,'fill', data.fill );
-   svg.setAttributeNS( null,'font-size', data.size );
-   data.font ??= 'Times-Roman';
-   svg.setAttributeNS( null,'font-family', data.font );
+   svg.setAttribute( 'fill', data.fill );
+   svg.setAttribute( 'font-size', data.size );
+   data.font ??= 'Times New Roman';
+   svg.setAttribute( 'font-family', data.font );
    //   svg.setAttributeNS( null, 'viewBox', '0 0 ' + data.width + ' ' + data.parent);
 
    svg.innerHTML = data.text;
@@ -832,29 +825,35 @@ function textsvg(data,parent) {
 
 function rectsvg(data,parent) {
    var svg = document.createElementNS("http://www.w3.org/2000/svg",'rect' );
-   svg.setAttributeNS( null,'x',data.x );
-   svg.setAttributeNS( null,'y',data.y );
+   svg.setAttribute( 'x',data.x );
+   svg.setAttribute( 'y',data.y );
    data.width ??= 0;
-   svg.setAttributeNS( null,'width',data.width );
+   svg.setAttribute( 'width',data.width );
    data.height ??= 0;
-   svg.setAttributeNS( null,'height',data.height );
+   svg.setAttribute( 'height',data.height );
    data.fill ??= '#000000';
-   svg.setAttributeNS( null,'fill', data.fill );
-   svg.setAttributeNS( null,'stroke', data.stroke );
+   svg.setAttribute( 'fill', data.fill );
+   svg.setAttribute( 'stroke', data.stroke );
    return parent.appendChild( svg );
 }
 
-var title = "Casoli 1";
-var text = "Il castello di Casoli occupa la sommità del Colle delle Tanette. La prima attestazione risale al 1180, ma la sua fondazione è datata fra i secoli XI-XII. Tra il XIII e il XV secolo le fortificazioni della Val di Lima sono al centro degli scontri tra Lucca e Firenze, in quanto area strategica di confine. Il complesso fortificato è dotato di due cinte murarie, una torre posta sulla porzione più elevata del colle, mastio e cisterna. Già dal XIV secolo ha subito alcuni interventi di ristrutturazione ed è probabile che alcune pietre del castello siano state reimpiegate negli edifici circostanti."
 //var text = "https://sites.google.com/view/prin-underlandscape/home-page/itinerari/20230430/5ahvp8";
 
-// INIZIO
+// The fields in "data" are
+// title: the tag heading (LoR=0)
+// text: the tag text (LoR=1)
+// link: the html link (LoR=2)
+// width: the width of the enclosing svg
+// height: the height of the enclosing svg
 function mktag (data, parent) {
    // This the svg that contains the tag
    var tag_svg = document.createElementNS("http://www.w3.org/2000/svg",'svg' );
-   tag_svg.setAttributeNS( null,'width','715' );
-   tag_svg.setAttributeNS( null,'height','860' );
-   tag_svg.setAttributeNS( null,'viewBox', '0 0 715 860' );
+   tag_svg.setAttribute( 'x', data.x );
+   tag_svg.setAttribute( 'y', data.y );
+   tag_svg.setAttribute( 'width', data.width );
+   tag_svg.setAttribute( 'height', data.height );
+
+   tag_svg.setAttribute( 'viewBox', '0 0 '+data.width+' '+data.height);
    var tag = parent.appendChild(tag_svg);
    
    // This in the outer white container
@@ -863,11 +862,11 @@ function mktag (data, parent) {
    rectsvg({x:100, y:100, width:515, height:660, fill:'#d0d0d0', stroke:'#555555'},tag);
    // This is the project logo
    var logo = document.createElementNS("http://www.w3.org/2000/svg",'image' );
-   logo.setAttributeNS( null,'x',125 );
-   logo.setAttributeNS( null,'y',120 );
-   logo.setAttributeNS( null,'width',90 );
-   logo.setAttributeNS( null,'height',90 );
-   logo.setAttributeNS( "http://www.w3.org/1999/xlink",'xlink:href', "./logoEle_v2.2_small.png" );
+   logo.setAttribute( 'x',125 );
+   logo.setAttribute( 'y',120 );
+   logo.setAttribute( 'width',90 );
+   logo.setAttribute( 'height',90 );
+   logo.setAttribute( 'href', "./logoEle_v2.2_small.png" );
    var box = tag.appendChild(logo);
    // This is the tag title
    textsvg({x:230, y:170, size:70, text: data.title},tag);
@@ -884,22 +883,57 @@ function mktag (data, parent) {
    textsvg({x:150, y:705, size:25, text: 'Altri QR-code informativi in quest\'area'},tag);
    
    // Footer (credits)
-   textsvg({x:115, y:730, size:15, font:'Courier-Bold', text: 'Underlandscape'},tag);
-   textsvg({x:115, y:745, size:15, font:'Courier-Bold', text: 'Progetto di Ricerca di Interesse Nazionale MIUR - 2021'},tag);
+   textsvg({x:115, y:730, size:15, font:'Verdana', text: 'Underlandscape'},tag);
+   textsvg({x:115, y:745, size:15, font:'Verdana', text: 'Progetto di Ricerca di Interesse Nazionale MIUR - 2021'},tag);
 }
 
-mktag({'title': title, 'text': text}, document.getElementById("x1"));
-mktag({'title': title, 'text': text}, document.getElementById("x2"));
-mktag({'title': title, 'text': text}, document.getElementById("x3"));
-mktag({'title': title, 'text': text}, document.getElementById("x4"));
+function scanGEOJson(text) {
+  data = JSON.parse(text).layers[0].features;
+  data.forEach( (point,i) => {
+     mktag({
+        'title': point.properties.name, 
+        'text': point.properties.description,
+        'fid': point.properties.fid,
+        'width': 715, 
+        'height': 860, 
+        'x': tagWidth*(i%comboWidth), 
+        'y':tagHeight*Math.trunc(i/comboWidth) }, tagCombo);
+     }
+  );
+  
+  const blob = new Blob([tagComboElement.outerHTML]);// Questa funziona ma il testo viene reso male (e genera un svg)
+  //const blob = new Blob([svg.toString()]); // Questa funziona ma i ltesto viene reso male (e genera un svg)
+  const element = document.createElement("a");
+  element.download = "qr-tags.svg";
+  element.href = window.URL.createObjectURL(blob);
+  element.click();
+  element.remove();
+}
 
-// Questa funziona ma i ltesto viene reso male (e genera un svg)
-// https://stackoverflow.com/questions/57798877/button-for-downloading-svg-in-javascript-html
-const svg = document.getElementById('x1').outerHTML;
-const blob = new Blob([svg.toString()]);
-const element = document.createElement("a");
-element.download = "w3c.svg";
-element.href = window.URL.createObjectURL(blob);
-element.click();
-element.remove();
+
+
+//for (let i = 0; i < 20; i++) {
+//  mktag({'title': i, 'text': text, 'width': 715, 'height': 860, 'x': tagWidth*(i%comboWidth), 'y':tagHeight*Math.trunc(i/comboWidth) }, tagCombo);
+//}
+
+
+const tagWidth = 715;
+const tagHeight =860;
+const comboWidth = 5;
+const comboHeight = 3;
+
+document.getElementById('fileName').addEventListener('change', (e) => {
+  e.target.files[0].text().then((text) => scanGEOJson(text));
+});
+
+var tagComboElement = document.createElementNS("http://www.w3.org/2000/svg",'svg' );
+tagComboElement.setAttribute( 'viewBox', '0 0 '+(tagWidth*comboWidth)+' '+(tagHeight*comboHeight));
+var tagCombo = document.body.appendChild(tagComboElement);
+
+//mktag({'title': title, 'text': text, 'width': 715, 'height': 860, 'x': 0, 'y': 0}, tagCombo);
+//mktag({'title': "Hallo", 'text': text, 'width': 715, 'height': 860, 'x': 0, 'y': tagWidth}, tagCombo);
+//mktag({'title': title, 'text': text, 'width': 715, 'height': 860}, document.getElementById("x3"));
+//mktag({'title': title, 'text': text, 'width': 715, 'height': 860}, document.getElementById("x4"));
+
+
 </script>
