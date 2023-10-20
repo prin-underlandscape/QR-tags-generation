@@ -39,7 +39,7 @@ Check the QR-tags and download if OK (otherwise reload)<br>
 
 <div id='Finish' style="display: none;">
 <p>
-Good bye (reload the page to produce new QR-codes)<br>
+<label id="goodBye">Good bye (reload the page to produce new QR-codes)</label><br>
 </div>
 </body>
 
@@ -895,7 +895,7 @@ function mktag (data, parent) {
       const scaleFirst = Math.min(355/titleTextNodeFirst.getBBox().width,35/titleTextNode.getBBox().height);
       // create node for the second line cloning the first and update y and append to parent
       const titleTextNodeSecond = titleContainerNode.appendChild(titleTextNodeFirst.cloneNode());
-      titleTextNodeSecond.setAttribute( 'y', 80 );
+      titleTextNodeSecond.setAttribute( 'y', 75 );
       titleTextNodeSecond.innerHTML = splitTitle[1];
       // compute scale to fit the box for the lower line
       const scaleSecond = Math.min(355/titleTextNodeSecond.getBBox().width,35/titleTextNodeSecond.getBBox().height);
@@ -927,6 +927,11 @@ function mktag (data, parent) {
 
 function scanGEOJson(text) {
   data = JSON.parse(text).layers[0].features;
+  comboHeight = Math.ceil(data.length / comboWidth);
+  var tagComboElement = document.createElementNS("http://www.w3.org/2000/svg",'svg' );
+  tagComboElement.setAttribute( 'viewBox', '0 0 '+(tagWidth*comboWidth)+' '+(tagHeight*comboHeight));
+  tagComboNode = document.body.appendChild(tagComboElement);
+  
   data.forEach( (point,i) => {
      mktag({
         'title': point.properties.name, 
@@ -935,17 +940,11 @@ function scanGEOJson(text) {
         'width': 715, 
         'height': 860, 
         'x': tagWidth*(i%comboWidth), 
-        'y':tagHeight*Math.trunc(i/comboWidth) }, tagCombo);
+        'y': tagHeight*Math.trunc(i/comboWidth) }, tagComboNode);
      }
   );
 
 }
-
-const tagWidth = 715;
-const tagHeight =860;
-const comboWidth = 5;
-const comboHeight = 3;
-var urlPrefix = "";
 
 const urlPrefixInput=document.getElementById('urlPrefix');
 urlPrefixInput.addEventListener('keypress', (e) => {
@@ -968,19 +967,27 @@ document.getElementById('fileName').addEventListener('change', (e) => {
 
 document.getElementById('downloadButton').addEventListener('click', (e) => {
    document.getElementById('Download').style.display = "none";
-   const blob = new Blob([tagComboElement.outerHTML]);
+   const blob = new Blob([tagComboNode.outerHTML]);
    const element = document.createElement("a");
    element.download = "qr-tags.svg";
    element.href = window.URL.createObjectURL(blob);
    element.click();
    element.remove();
    document.getElementById('Finish').style.display = "block";
+   document.getElementById('goodBye').innerHTML += "<br>Tag size is "+tagWidth+'x'+tagHeight+'px (wxh)';
+   document.getElementById('goodBye').innerHTML += "<br>Image size is "+(tagWidth*comboWidth)+'x'+(tagHeight*comboHeight)+'px (wxh)';
+   const dpi=220;
+   document.getElementById('goodBye').innerHTML += "<br>Printed tag size at " + dpi + " dpi is " + Math.round(tagWidth*25.4/dpi) + 'x' + Math.round(tagHeight*25.4/dpi) + 'mm (wxh)';
+   document.getElementById('goodBye').innerHTML += "<br>At " + dpi + " dpi three rows fit an A3 landscape page"; 
+   document.getElementById('goodBye').innerHTML += "<br><br>Good bye (reload the page to produce new QR-codes)";
 });
 
-var tagComboElement = document.createElementNS("http://www.w3.org/2000/svg",'svg' );
-tagComboElement.setAttribute( 'viewBox', '0 0 '+(tagWidth*comboWidth)+' '+(tagHeight*comboHeight));
-var tagCombo = document.body.appendChild(tagComboElement);
-
+var tagComboNode;
+var urlPrefix;
+const tagWidth = 715;
+const tagHeight =860;
+const comboWidth = 5;
+var comboHeight;
 
 </script>
 </html>

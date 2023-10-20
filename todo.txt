@@ -1,8 +1,8 @@
 todo list
 
--) estendere a più di 15 tag
--) estetica pagina
--) eliminare funzioni libreria non utilizzare e aggiungere credits (rivedere)
 -) sostituire " con ' dove si può
 -) definire const quello che non è var :-)
 -) verificare Node <-> Elemnt
+-) suddividere in pagine 5x3 (?)
+-) estetica pagina (rivedere)
+-) eliminare funzioni libreria non utilizzate e aggiungere credits (rivedere)
