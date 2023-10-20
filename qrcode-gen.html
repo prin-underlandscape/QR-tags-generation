@@ -1,12 +1,51 @@
+<!--
+  The function to create the tags is derived from 
+  qr.js -- QR code generator in Javascript (revision 2011-01-19)
+  Written by Kang Seonghoon <public+qrjs@mearie.org>
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+<style>
+body {font-size: 40px;}
+input {font: 40px "Times New Roman"}
+button {font: 40px "Times New Roman"}
+</style>
+</head>
 <body>
    
-<input id="fileName" type="file" ></input>
+<div id='URL'>
+<p>
+Type the URL prefix of the links in the QR-tags:<br>
+<input id="urlPrefix" type="url" size=80 value="https://sites.google.com/view/prin-underlandscape/home-page/itinerari/"></input>
+</div>
 
+
+<div id='Upload' style="display: none">
+<p>
+The URL prefix is <br><a id="showURL" target="_blank">></a><br>
+(please check)<br>
+<br>
+Upload your GeoJSON in UMap style:<br>
+<input id="fileName" type="file"></input>
+</div>
+
+<div id='Download' style="display: none;">
+<p>
+Check the QR-tags and download if OK (otherwise reload)<br>
+<button id="downloadButton" type="button">Download SVG file</button>
+</div>
+
+<div id='Finish' style="display: none;">
+<p>
+Good bye (reload the page to produce new QR-codes)<br>
+</div>
 </body>
 
 <script type="text/javascript">
 /* qr.js -- QR code generator in Javascript (revision 2011-01-19)
- * Written by Kang Seonghoon <public+qrjs@mearie.org>.
+ * Written by Kang Seonghoon <public+qrjs@mearie.org>
  *
  * This source code is in the public domain; if your jurisdiction does not
  * recognize the public domain the terms of Creative Commons CC0 license
@@ -707,30 +746,6 @@ var QRCode = {
 
 		return generate(data, ver, mode, ecclevel, mask);
 	},
-
-	'generateHTML': function(data, options) {
-		options = options || {};
-		var matrix = QRCode['generate'](data, options);
-		var modsize = Math.max(options.modulesize || 5, 0.5);
-		var margin = Math.max(options.margin !== null ? options.margin : 4, 0.0);
-
-		var e = document.createElement('div');
-		var n = matrix.length;
-		var html = ['<table border="0" cellspacing="0" cellpadding="0" style="border:' +
-			modsize*margin + 'px solid #fff;background:#fff">'];
-		for (var i = 0; i < n; ++i) {
-			html.push('<tr>');
-			for (var j = 0; j < n; ++j) {
-				html.push('<td style="width:' + modsize + 'px;height:' + modsize + 'px' +
-					(matrix[i][j] ? ';background:#000' : '') + '"></td>');
-			}
-			html.push('</tr>');
-		}
-		e.className = 'qrcode';
-		e.innerHTML = html.join('') + '</table>';
-		return e;
-	},
-
 	'generateSVG': function(data, options) {
 		options = options || {};
 		var matrix = QRCode['generate'](data, options);
@@ -763,46 +778,13 @@ var QRCode = {
 		}
 		e.innerHTML = svg.join('');
 		return e;
-	},
-
-	'generatePNG': function(data, options) {
-		options = options || {};
-		var matrix = QRCode['generate'](data, options);
-      console.log(matrix);
-		var modsize = Math.max(options.modulesize || 5, 0.5);
-		var margin = Math.max(options.margin !== null ? options.margin : 4, 0.0);
-		var n = matrix.length;
-		var size = modsize * (n + 2 * margin);
-
-//		var canvas = document.createElement('canvas'), context;
-      var canvas = document.getElementById("cvs");
-		canvas.width = canvas.height = size;
-		context = canvas.getContext('2d');
-		if (!context) throw 'canvas support is needed for PNG output';
-
-		context.fillStyle = '#fff';
-		context.fillRect(0, 0, size, size);
-		context.fillStyle = '#000';
-		for (var i = 0; i < n; ++i) {
-			for (var j = 0; j < n; ++j) {
-				if (matrix[i][j]) {
-					context.fillRect(modsize * (margin + j),
-						modsize * (margin + i),
-						modsize, modsize);
-				}
-			}
-		}
-      document.getElementById("app").appendChild(canvas);
-		//context.fillText('evaluation: ' + evaluatematrix(matrix), 10, 10);
-		return canvas.toDataURL();
 	}
 };
 
-// Write Javascript code!
-//const appDiv = document.getElementById('app');
-//appDiv.innerHTML = `<h1>JS Starter</h1>`;
-
-//let qr0 = QRCode.generate("Hello, world!", QrCode.Ecc.MEDIUM);
+/* 
+* END of qr.js
+* QR code generator in Javascript by Kang Seonghoon <public+qrjs@mearie.org>
+*/
 
 function textsvg(data,parent) {
    var svg = document.createElementNS("http://www.w3.org/2000/svg",'text' );
@@ -837,8 +819,6 @@ function rectsvg(data,parent) {
    return parent.appendChild( svg );
 }
 
-//var text = "https://sites.google.com/view/prin-underlandscape/home-page/itinerari/20230430/5ahvp8";
-
 // The fields in "data" are
 // title: the tag heading (LoR=0)
 // text: the tag text (LoR=1)
@@ -868,23 +848,81 @@ function mktag (data, parent) {
    logo.setAttribute( 'height',90 );
    logo.setAttribute( 'href', "./logoEle_v2.2_small.png" );
    var box = tag.appendChild(logo);
-   // This is the tag title
-   textsvg({x:230, y:170, size:70, text: data.title},tag);
+   // This is the title svg container
+   const gContainer = document.createElementNS("http://www.w3.org/2000/svg",'g' );
+   const gContainerNode = tag.appendChild(gContainer);
+   const titleContainer = document.createElementNS("http://www.w3.org/2000/svg",'svg' );
+   titleContainer.setAttribute( 'x', 230 );
+   titleContainer.setAttribute( 'y', 120 );
+   titleContainer.setAttribute( 'width', 355 );
+   titleContainer.setAttribute( 'height', 80 );
+   const titleContainerNode = gContainerNode.appendChild(titleContainer);
+    // This is the tag title element on one line
+   const titleTextElement = document.createElementNS("http://www.w3.org/2000/svg",'text' );
+   titleTextElement.setAttribute( 'x', 0 );
+   titleTextElement.setAttribute( 'y', 70 );// one line y position
+   titleTextElement.setAttribute( 'fill', '#000000' );
+   titleTextElement.setAttribute( 'font-size', 80 );// one line font size
+   titleTextElement.setAttribute( 'font-family', 'Times New Roman' );
+   titleTextElement.innerHTML = data.title;
+   const titleTextNode = titleContainerNode.appendChild(titleTextElement);
+   // Evaluate title element size
+   const xScale = 355/titleTextNode.getBBox().width;
+   const yScale = 70/titleTextNode.getBBox().height;
+   if ( xScale > 0.5 ) {
+      // Title fits one line
+      titleTextNode.setAttribute("transform", "scale(" + Math.min(xScale,yScale) + ")");
+   }
+   else {
+      // Title does not fit one line
+      // Clean old node
+      titleContainerNode.removeChild(titleTextNode);
+      // Compute first blank before string center
+      titleLength = data.title.length;
+      const wordArray = data.title.split(" ");
+      var i = 0;
+      var acc = 0;
+      while ( acc < data.title.length/2 ) { acc += wordArray[i].length +1; i += 1 };
+      // Build the two half lines
+      var splitTitle = ['',''];
+      wordArray.forEach( (s, j) => { splitTitle[(j<i)?0:1] += s+' ' } );
+      // reuse old element for upper line and update y and font-size and append to parent
+      titleTextNode.setAttribute( 'y', 35 );
+      titleTextNode.setAttribute( 'font-size', 40 );
+      titleTextNode.innerHTML = splitTitle[0];
+      const titleTextNodeFirst = titleContainerNode.appendChild(titleTextElement);
+      // compute scale to fit the box for the upper line
+      const scaleFirst = Math.min(355/titleTextNodeFirst.getBBox().width,35/titleTextNode.getBBox().height);
+      // create node for the second line cloning the first and update y and append to parent
+      const titleTextNodeSecond = titleContainerNode.appendChild(titleTextNodeFirst.cloneNode());
+      titleTextNodeSecond.setAttribute( 'y', 80 );
+      titleTextNodeSecond.innerHTML = splitTitle[1];
+      // compute scale to fit the box for the lower line
+      const scaleSecond = Math.min(355/titleTextNodeSecond.getBBox().width,35/titleTextNodeSecond.getBBox().height);
+      // final scale is the loweest
+      const scale = Math.min(scaleFirst,scaleSecond);
+      // scale both nodes
+      titleTextNodeFirst.setAttribute("transform", "scale(" + scale + ")");
+      titleTextNodeSecond.setAttribute("transform", "scale(" + scale + ")");
+   }
    // This is the info below the title
-   textsvg({x:230, y:205, size:20, text: 'Inquadra per maggiori informazioni'},tag);
+   textsvg({x:230, y:215, size:25, text: 'Inquadra per maggiori informazioni'},tag);
    // This is the real QR-code
-   let qrcode_img = QRCode.generateSVG(data.text,{mode: "octet", ecclevel: "L"});
+   let qrcode_img = QRCode.generateSVG(
+      data.text+'\n'+urlPrefix+'/'+data.fid,
+      {mode: "octet", ecclevel: "L"}
+   );
    let qrcode = tag.appendChild(qrcode_img);
    qrcode.setAttribute("x",125);
    qrcode.setAttribute("y",225);
    qrcode.setAttribute("width",460);
    qrcode.setAttribute("height",460);
    // This is the info below the QR-code
-   textsvg({x:150, y:705, size:25, text: 'Altri QR-code informativi in quest\'area'},tag);
+   textsvg({x:150, y:710, size:25, text: 'Altri QR-code informativi in quest\'area'},tag);
    
    // Footer (credits)
-   textsvg({x:115, y:730, size:15, font:'Verdana', text: 'Underlandscape'},tag);
-   textsvg({x:115, y:745, size:15, font:'Verdana', text: 'Progetto di Ricerca di Interesse Nazionale MIUR - 2021'},tag);
+   textsvg({x:115, y:735, size:15, font:'Verdana', text: 'Underlandscape'},tag);
+   textsvg({x:115, y:755, size:15, font:'Verdana', text: 'Progetto di Ricerca di Interesse Nazionale MIUR - 2021'},tag);
 }
 
 function scanGEOJson(text) {
@@ -900,40 +938,49 @@ function scanGEOJson(text) {
         'y':tagHeight*Math.trunc(i/comboWidth) }, tagCombo);
      }
   );
-  
-  const blob = new Blob([tagComboElement.outerHTML]);// Questa funziona ma il testo viene reso male (e genera un svg)
-  //const blob = new Blob([svg.toString()]); // Questa funziona ma i ltesto viene reso male (e genera un svg)
-  const element = document.createElement("a");
-  element.download = "qr-tags.svg";
-  element.href = window.URL.createObjectURL(blob);
-  element.click();
-  element.remove();
+
 }
-
-
-
-//for (let i = 0; i < 20; i++) {
-//  mktag({'title': i, 'text': text, 'width': 715, 'height': 860, 'x': tagWidth*(i%comboWidth), 'y':tagHeight*Math.trunc(i/comboWidth) }, tagCombo);
-//}
-
 
 const tagWidth = 715;
 const tagHeight =860;
 const comboWidth = 5;
 const comboHeight = 3;
+var urlPrefix = "";
+
+const urlPrefixInput=document.getElementById('urlPrefix');
+urlPrefixInput.addEventListener('keypress', (e) => {
+   if (e.keyCode == 13) {
+      document.getElementById('URL').style.display = "none";
+      document.getElementById('Upload').style.display = "block";
+      urlPrefix = urlPrefixInput.value;
+      document.getElementById('showURL').innerHTML = urlPrefix;
+      document.getElementById('showURL').href = urlPrefix;
+   }
+});
 
 document.getElementById('fileName').addEventListener('change', (e) => {
-  e.target.files[0].text().then((text) => scanGEOJson(text));
+  e.target.files[0].text().then(
+    (text) => {
+       scanGEOJson(text);
+       document.getElementById('Upload').style.display = "none";
+       document.getElementById('Download').style.display = "block";
+    });});
+
+document.getElementById('downloadButton').addEventListener('click', (e) => {
+   document.getElementById('Download').style.display = "none";
+   const blob = new Blob([tagComboElement.outerHTML]);
+   const element = document.createElement("a");
+   element.download = "qr-tags.svg";
+   element.href = window.URL.createObjectURL(blob);
+   element.click();
+   element.remove();
+   document.getElementById('Finish').style.display = "block";
 });
 
 var tagComboElement = document.createElementNS("http://www.w3.org/2000/svg",'svg' );
 tagComboElement.setAttribute( 'viewBox', '0 0 '+(tagWidth*comboWidth)+' '+(tagHeight*comboHeight));
 var tagCombo = document.body.appendChild(tagComboElement);
 
-//mktag({'title': title, 'text': text, 'width': 715, 'height': 860, 'x': 0, 'y': 0}, tagCombo);
-//mktag({'title': "Hallo", 'text': text, 'width': 715, 'height': 860, 'x': 0, 'y': tagWidth}, tagCombo);
-//mktag({'title': title, 'text': text, 'width': 715, 'height': 860}, document.getElementById("x3"));
-//mktag({'title': title, 'text': text, 'width': 715, 'height': 860}, document.getElementById("x4"));
-
 
 </script>
+</html>
