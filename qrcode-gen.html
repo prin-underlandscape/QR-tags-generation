@@ -8,26 +8,36 @@
 
 <head>
 <style>
-body {font-size: 40px;}
-input {font: 40px "Times New Roman"}
-button {font: 40px "Times New Roman"}
+body {}
+input {font: 1em "Times New Roman"}
+button {font: 1em "Times New Roman"}
 </style>
 </head>
-<body>
-   
-<div id='URL'>
-<p>
-Type the URL prefix of the links in the QR-tags:<br>
-<input id="urlPrefix" type="url" size=80 value="https://sites.google.com/view/prin-underlandscape/home-page/itinerari/"></input>
+
+<body onresize="setFontSize()" onload="setFontSize()">
+
+<div id=switch>
+<button id="create">Create UMap file from template</button><br>
+<button id="open">Open existing UMap file</button>
 </div>
 
-
-<div id='Upload' style="display: none">
-<p>
-The URL prefix is <br><a id="showURL" target="_blank">></a><br>
-(please check)<br>
+<div id='createUmap' style="display: none">
+The default URL prefix of the links in the QR-tags:<br>
+(you can edit them later in the UMap editor)<br>
+<input id="urlPrefix" type="url" size=80 value="https://sites.google.com/view/prin-underlandscape/home-page/itinerari/"></input><br>
 <br>
-Upload your GeoJSON in UMap style:<br>
+Your GeoJSON FeatureCollection:<br>
+<input id="geojsonName" type="file"></input><br>
+<br>
+Your UMap template:<br>
+<input id="templateName" type="file"></input><br>
+<br>
+<button id="createUmapButton">Create UMap File</button>
+</div>
+
+<div id='uploadUmap' style="display: none">
+<p>
+Upload your UMap file:<br>
 <input id="fileName" type="file"></input>
 </div>
 
@@ -44,6 +54,14 @@ Check the QR-tags and download if OK (otherwise reload)<br>
 </body>
 
 <script type="text/javascript">
+   
+function setFontSize() {
+    pagesized = window.innerWidth / 30; // Proportionate font size to page
+    pagesized = Math.max(pagesized, 14); // Set size to be no less than 14 px
+    pagesized = Math.min(pagesized, 30); // & No greater than 30 px
+    document.body.style.fontSize = pagesized+"px"; // Set body default font size
+    console.log(pagesized);
+}
 /* qr.js -- QR code generator in Javascript (revision 2011-01-19)
  * Written by Kang Seonghoon <public+qrjs@mearie.org>
  *
@@ -786,6 +804,10 @@ var QRCode = {
 * QR code generator in Javascript by Kang Seonghoon <public+qrjs@mearie.org>
 */
 
+/*
+* Underlandscape QR tags generator by Augusto Ciuffoletti (augusto.ciuffoletti@gmail.com)
+*/
+
 function textsvg(data,parent) {
    var svg = document.createElementNS("http://www.w3.org/2000/svg",'text' );
    svg.setAttribute( 'x',data.x );
@@ -820,12 +842,13 @@ function rectsvg(data,parent) {
 }
 
 // The fields in "data" are
-// title: the tag heading (LoR=0)
-// text: the tag text (LoR=1)
-// link: the html link (LoR=2)
-// width: the width of the enclosing svg
-// height: the height of the enclosing svg
-function mktag (data, parent) {
+// - x: top-left coordinate of the enclosing SVG
+// - y: bottom-right coordinate of the enclosing SVG
+// - width: the width of the enclosing SVG
+// - height: the height of the enclosing SVG
+// "point" is the point in the geojson (only the properties attribute is used)
+// "parent" is the HTML node the SVG will be appended to 
+function mktag (data, point, parent) {
    // This the svg that contains the tag
    var tag_svg = document.createElementNS("http://www.w3.org/2000/svg",'svg' );
    tag_svg.setAttribute( 'x', data.x );
@@ -864,7 +887,7 @@ function mktag (data, parent) {
    titleTextElement.setAttribute( 'fill', '#000000' );
    titleTextElement.setAttribute( 'font-size', 80 );// one line font size
    titleTextElement.setAttribute( 'font-family', 'Times New Roman' );
-   titleTextElement.innerHTML = data.title;
+   titleTextElement.innerHTML = point.properties.name;
    const titleTextNode = titleContainerNode.appendChild(titleTextElement);
    // Evaluate title element size
    const xScale = 355/titleTextNode.getBBox().width;
@@ -877,12 +900,11 @@ function mktag (data, parent) {
       // Title does not fit one line
       // Clean old node
       titleContainerNode.removeChild(titleTextNode);
-      // Compute first blank before string center
-      titleLength = data.title.length;
-      const wordArray = data.title.split(" ");
+      // Compute i as index of first blank before string center
+      const wordArray = point.properties.name.split(" ");
       var i = 0;
       var acc = 0;
-      while ( acc < data.title.length/2 ) { acc += wordArray[i].length +1; i += 1 };
+      while ( acc < point.properties.name.length/2 ) { acc += wordArray[i].length +1; i += 1 };
       // Build the two half lines
       var splitTitle = ['',''];
       wordArray.forEach( (s, j) => { splitTitle[(j<i)?0:1] += s+' ' } );
@@ -908,11 +930,11 @@ function mktag (data, parent) {
    // This is the info below the title
    textsvg({x:230, y:215, size:25, text: 'Inquadra per maggiori informazioni'},tag);
    // This is the real QR-code
-   let qrcode_img = QRCode.generateSVG(
-      data.text+'\n'+urlPrefix+'/'+data.fid,
+   var qrcode_img = QRCode.generateSVG(
+      point.properties.description+'\n'+point.properties.urlPrefix+'/'+point.properties.fid,
       {mode: "octet", ecclevel: "L"}
    );
-   let qrcode = tag.appendChild(qrcode_img);
+   var qrcode = tag.appendChild(qrcode_img);
    qrcode.setAttribute("x",125);
    qrcode.setAttribute("y",225);
    qrcode.setAttribute("width",460);
@@ -934,34 +956,32 @@ function scanGEOJson(text) {
   
   data.forEach( (point,i) => {
      mktag({
-        'title': point.properties.name, 
-        'text': point.properties.description,
-        'fid': point.properties.fid,
         'width': 715, 
         'height': 860, 
         'x': tagWidth*(i%comboWidth), 
-        'y': tagHeight*Math.trunc(i/comboWidth) }, tagComboNode);
+        'y': tagHeight*Math.trunc(i/comboWidth) 
+        },
+        point,
+        tagComboNode);
      }
   );
-
 }
 
-const urlPrefixInput=document.getElementById('urlPrefix');
-urlPrefixInput.addEventListener('keypress', (e) => {
-   if (e.keyCode == 13) {
-      document.getElementById('URL').style.display = "none";
-      document.getElementById('Upload').style.display = "block";
-      urlPrefix = urlPrefixInput.value;
-      document.getElementById('showURL').innerHTML = urlPrefix;
-      document.getElementById('showURL').href = urlPrefix;
-   }
-});
+document.getElementById('open').addEventListener('click', (e) => {
+   document.getElementById('switch').style.display = "none";
+   document.getElementById('uploadUmap').style.display = "block";
+})
+
+document.getElementById('create').addEventListener('click', (e) => {
+   document.getElementById('switch').style.display = "none";
+   document.getElementById('createUmap').style.display = "block";
+})
 
 document.getElementById('fileName').addEventListener('change', (e) => {
   e.target.files[0].text().then(
     (text) => {
        scanGEOJson(text);
-       document.getElementById('Upload').style.display = "none";
+       document.getElementById('uploadUmap').style.display = "none";
        document.getElementById('Download').style.display = "block";
     });});
 
@@ -982,12 +1002,60 @@ document.getElementById('downloadButton').addEventListener('click', (e) => {
    document.getElementById('goodBye').innerHTML += "<br><br>Good bye (reload the page to produce new QR-codes)";
 });
 
+document.getElementById('templateName').addEventListener('change', (e) => {
+   const filename = e.target.files[0];
+   // Check file type
+   const extension = filename.name.split('.').pop();
+   if ( extension !== "umap" ) {
+         alert ("Error: must be a uMap file!");
+         return; 
+   }
+   filename.text().then( text => template = JSON.parse(text) );
+});
+
+document.getElementById('geojsonName').addEventListener('change', (e) => {
+   const filename = e.target.files[0];
+   const extension = filename.name.split('.').pop();
+   if ( extension !== "geojson" ) {
+         alert ("Error: must be a geojson file!");
+         return; 
+   }
+   // Check file type
+   filename.text().then( text => geojson = JSON.parse(text) );
+});
+
+document.getElementById('createUmapButton').addEventListener('click', (e) => {
+   document.getElementById('createUmap').style.display = "none";
+   const urlPrefix = document.getElementById('urlPrefix').value;
+   const fid = Math.random().toString(36).substring(2,8);
+   template.layers[0].features = geojson.features;
+   template.layers[0].features.forEach( f => {
+      if ( ! f.hasOwnProperty('properties') ) { 
+         f.properties = {name: "", description: "", urlPrefix: urlPrefix, fid: fid };
+      } else {
+         if ( ! f.properties.hasOwnProperty('name') ) { f.properties.name = ""; }
+         if ( ! f.properties.hasOwnProperty('description') ) { f.properties.description = ""; }
+         if ( ! f.properties.hasOwnProperty('urlPrefix') ) { f.properties.urlPrefix = urlPrefix; }
+         if ( ! f.properties.hasOwnProperty('fid') ) { f.properties.urlPrefix = fid; }
+      }
+   } ) 
+   
+   const blob=new Blob([JSON.stringify(template)]);
+   const element = document.createElement("a");
+   element.download = "map.umap";
+   element.href = window.URL.createObjectURL(blob);
+   element.click();
+   element.remove();
+});
+
 var tagComboNode;
-var urlPrefix;
 const tagWidth = 715;
 const tagHeight =860;
 const comboWidth = 5;
 var comboHeight;
+
+var template;
+var geojson;
 
 </script>
 </html>

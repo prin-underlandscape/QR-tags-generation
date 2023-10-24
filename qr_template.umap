@@ -1,0 +1,63 @@
+{
+  "type": "umap",
+  "uri": "https://umap.openstreetmap.fr/it/map/qr-template_977118?download",
+  "properties": {
+    "easing": true,
+    "embedControl": true,
+    "fullscreenControl": true,
+    "searchControl": true,
+    "datalayersControl": true,
+    "zoomControl": true,
+    "permanentCreditBackground": true,
+    "showLabel": null,
+    "slideshow": {},
+    "captionMenus": true,
+    "captionBar": false,
+    "limitBounds": {},
+    "overlay": {},
+    "tilelayer": {
+      "tms": false,
+      "name": "OSM OpenTopoMap",
+      "maxZoom": 18,
+      "minZoom": 10,
+      "attribution": "Kartendaten: © [[https://openstreetmap.org/copyright|OpenStreetMap]]-Mitwirkende, [[http://viewfinderpanoramas.org/|SRTM]] | Kartendarstellung: © [[https://opentopomap.org/|OpenTopoMap]] ([[https://creativecommons.org/licenses/by-sa/3.0/|CC-BY-SA]])",
+      "url_template": "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
+    },
+    "licence": "",
+    "description": "",
+    "name": "QR template",
+    "displayPopupFooter": false,
+    "miniMap": false,
+    "moreControl": true,
+    "scaleControl": true,
+    "scrollWheelZoom": true,
+    "zoom": 15
+  },
+  "geometry": {
+    "type": "Point",
+    "coordinates": [
+      10.676663234102676,
+      44.04035605022578
+    ]
+  },
+  "layers": [
+    {
+      "type": "FeatureCollection",
+      "features": [],
+      "_umap_options": {
+        "displayOnLoad": true,
+        "inCaption": true,
+        "browsable": true,
+        "editMode": "advanced",
+        "name": "QR tags",
+        "remoteData": {},
+        "popupContentTemplate": "",
+        "showLabel": null,
+        "iconClass": "Ball",
+        "color": "DarkRed",
+        "popupShape": "Panel",
+        "popupTemplate": "Table"
+      }
+    }
+  ]
+}

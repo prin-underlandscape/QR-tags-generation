@@ -49,7 +49,8 @@
           "properties": {
             "fid": "mprs0w",
             "name": "Antro dell’Ugola",
-            "description": "Cavità con sviluppo orizzontale in calcare cavernoso, molto comune nella zona di Bagni di Lucca. Deve il suo appellativo alla caratteristica morfologia dell’ingresso, che ricorda l’interno di una bocca con in evidenza l’ugola."
+            "description": "Cavità con sviluppo orizzontale in calcare cavernoso, molto comune nella zona di Bagni di Lucca. Deve il suo appellativo alla caratteristica morfologia dell’ingresso, che ricorda l’interno di una bocca con in evidenza l’ugola.",
+            "urlPrefix":"https://sites.google.com/view/prin-underlandscape/home-page/itinerari/QRcode-230607"
           },
           "geometry": {
             "type": "Point",
@@ -64,7 +65,8 @@
           "properties": {
             "fid": "t5ysrm",
             "name": "Buca La Piella",
-            "description": "Scoperta e indagata nel 1975 dal Centro di Studi Archeologici di Lucca, ha restituito frammenti fittili (olle, ciotole, coppe, vasi), materiali metallici (oggetti in bronzo e piombo) e monete di III secolo d.C. (Mencacci-Zecchini 1982, Lucca Romana, p. 220). La grotta è situata ad est del paese di Casoli, sulla sinistra idrografica del Rio di Castello. Presenta due ingressi uniti da un cunicolo percorribile e ambienti di discrete dimensioni che si affacciano sull'esterno."
+            "description": "Scoperta e indagata nel 1975 dal Centro di Studi Archeologici di Lucca, ha restituito frammenti fittili (olle, ciotole, coppe, vasi), materiali metallici (oggetti in bronzo e piombo) e monete di III secolo d.C. (Mencacci-Zecchini 1982, Lucca Romana, p. 220). La grotta è situata ad est del paese di Casoli, sulla sinistra idrografica del Rio di Castello. Presenta due ingressi uniti da un cunicolo percorribile e ambienti di discrete dimensioni che si affacciano sull'esterno.",
+            "urlPrefix":"https://sites.google.com/view/prin-underlandscape/home-page/itinerari/QRcode-230607"
           },
           "geometry": {
             "type": "Point",
@@ -79,7 +81,8 @@
           "properties": {
             "fid": "my0kp8",
             "name": "Calendario celtico",
-            "description": "Presso le rovine della cinta muraria del castello di Casoli, si trovano degli elementi rocciosi erratici con tracce di lavorazione, considerati da alcuni studiosi come sito preromano celtico, usato per motivi cultuali (ara pagana o calendario celtico). In particolare, tra il 1970 e il 1980, gli storici Puccini, Ambrosini e Zecchini hanno approfondito le ricerche studiando i fori collocati sulla roccia di forma cilindrica e hanno ipotizzato un sistema somigliante ad una meridiana."
+            "description": "Presso le rovine della cinta muraria del castello di Casoli, si trovano degli elementi rocciosi erratici con tracce di lavorazione, considerati da alcuni studiosi come sito preromano celtico, usato per motivi cultuali (ara pagana o calendario celtico). In particolare, tra il 1970 e il 1980, gli storici Puccini, Ambrosini e Zecchini hanno approfondito le ricerche studiando i fori collocati sulla roccia di forma cilindrica e hanno ipotizzato un sistema somigliante ad una meridiana.",
+            "urlPrefix":"https://sites.google.com/view/prin-underlandscape/home-page/itinerari/QRcode-230607"
           },
           "geometry": {
             "type": "Point",
@@ -95,6 +98,7 @@
             "fid": "4l4r6y",
             "name": "Castello",
             "description": "Il castello di Casoli occupa la sommità del Colle delle Tanette. La prima attestazione risale al 1180, ma la sua fondazione è datata fra i secoli XI-XII. Tra il XIII e il XV secolo le fortificazioni della Val di Lima sono al centro degli scontri tra Lucca e Firenze, in quanto area strategica di confine. Il complesso fortificato è dotato di due cinte murarie, una torre posta sulla porzione più elevata del colle, mastio e cisterna. Già dal XIV secolo ha subito alcuni interventi di ristrutturazione ed è probabile che alcune pietre del castello siano state reimpiegate negli edifici circostanti.",
+            "urlPrefix":"https://sites.google.com/view/prin-underlandscape/home-page/itinerari/QRcode-230607",
             "_umap_options": {
               "color": "Blue"
             }
@@ -112,7 +116,8 @@
           "properties": {
             "fid": "lwtyx6",
             "name": "Chiesa dei SS. Donato e Andrea",
-            "description": "La chiesa dei SS. Donato e Andrea e il suo campanile si trovano nella piazza principale, al limite nord-occidentale del paese di Casoli. La prima attestazione risale all’anno 943, in cui risulta sottoposta alla pieve di Vico Pancellorum. L’attuale struttura è databile al XII-XIII secolo, con successivi rifacimenti e un ampliamento delle navate che hanno parzialmente inglobato la base del campanile. Ha una pianta longitudinale di tipo basilicale, la muratura in facciata è realizzata in conci squadrati in calcare e arenaria disposti su filari regolari, mentre la muratura sul fianco e sul retro della navata nord è alla moderna."
+            "description": "La chiesa dei SS. Donato e Andrea e il suo campanile si trovano nella piazza principale, al limite nord-occidentale del paese di Casoli. La prima attestazione risale all’anno 943, in cui risulta sottoposta alla pieve di Vico Pancellorum. L’attuale struttura è databile al XII-XIII secolo, con successivi rifacimenti e un ampliamento delle navate che hanno parzialmente inglobato la base del campanile. Ha una pianta longitudinale di tipo basilicale, la muratura in facciata è realizzata in conci squadrati in calcare e arenaria disposti su filari regolari, mentre la muratura sul fianco e sul retro della navata nord è alla moderna.",
+            "urlPrefix":"https://sites.google.com/view/prin-underlandscape/home-page/itinerari/QRcode-230607"
           },
           "geometry": {
             "type": "Point",
@@ -127,7 +132,8 @@
           "properties": {
             "fid": "e4n2js",
             "name": "Deviazione per Antro dell’Ugola",
-            "description": "Segui la traccia che sale sulla destra, dopo circa 100 m incontrerai l’Antro dell’Ugola."
+            "description": "Segui la traccia che sale sulla destra, dopo circa 100 m incontrerai l’Antro dell’Ugola.",
+            "urlPrefix":"https://sites.google.com/view/prin-underlandscape/home-page/itinerari/QRcode-230607"
           },
           "geometry": {
             "type": "Point",
@@ -142,7 +148,8 @@
           "properties": {
             "fid": "hve4pj",
             "name": "Deviazione per Buca La Piella",
-            "description": "Sali sulla destra e continua per circa 150 m, incontrerai prima un piccolo riparo sottoroccia e in seguito l’ingresso della Buca La Piella."
+            "description": "Sali sulla destra e continua per circa 150 m, incontrerai prima un piccolo riparo sottoroccia e in seguito l’ingresso della Buca La Piella.",
+            "urlPrefix":"https://sites.google.com/view/prin-underlandscape/home-page/itinerari/QRcode-230607"
           },
           "geometry": {
             "type": "Point",
@@ -157,7 +164,8 @@
           "properties": {
             "fid": "13uav3",
             "name": "Deviazione per Sant’Andrea de Lacu",
-            "description": "Segui la traccia che sale sulla destra, dietro al metato. Ti troverai su un pianoro che ospita l’antica chiesa di Sant’Andrea de Lacu e un edificio medievale, forse ad uso abitativo di sua pertinenza."
+            "description": "Segui la traccia che sale sulla destra, dietro al metato. Ti troverai su un pianoro che ospita l’antica chiesa di Sant’Andrea de Lacu e un edificio medievale, forse ad uso abitativo di sua pertinenza.",
+            "urlPrefix":"https://sites.google.com/view/prin-underlandscape/home-page/itinerari/QRcode-230607"
           },
           "geometry": {
             "type": "Point",
@@ -172,7 +180,8 @@
           "properties": {
             "fid": "5ahvp8",
             "name": "Ingresso Buca La Piella",
-            "description": "Di fronte si trova un’apertura nella roccia. Superato il breve cunicolo ti troverai all’interno di Buca La Piella. Fai attenzione alla testa, è necessario abbassarsi e procedere con cautela."
+            "description": "Di fronte si trova un’apertura nella roccia. Superato il breve cunicolo ti troverai all’interno di Buca La Piella. Fai attenzione alla testa, è necessario abbassarsi e procedere con cautela.",
+            "urlPrefix":"https://sites.google.com/view/prin-underlandscape/home-page/itinerari/QRcode-230607"
           },
           "geometry": {
             "type": "Point",
@@ -188,6 +197,7 @@
             "fid": "60m75s",
             "name": "Iscrizione longobarda",
             "description": "Epigrafe incisa su bozza in arenaria a sezione sub-rettangolare, reimpiegata all'interno di una muratura perimetrale di un’abitazione oggi abbandonata e in stato di rudere, localizzata su via della Mora. Secondo alcuni studiosi è in lingua longobarda, secondo altri in antico ligure e si tratterebbe di un’invocazione (Ambrosini, Puccini, Zecchini 1981; Zavaroni 2019).",
+            "urlPrefix":"https://sites.google.com/view/prin-underlandscape/home-page/itinerari/QRcode-230607",
             "_umap_options": {
               "color": "MediumBlue"
             }
@@ -205,7 +215,8 @@
           "properties": {
             "fid": "xqjpbk",
             "name": "Lago di Casoli",
-            "description": "Il lago Casoli è di origine glaciale, si narra sia stato meta fin dalla preistoria come luogo 'magico', grazie all’atmosfera mistica attualmente percepibile. Da ricognizione estensiva realizzata dall’Università di Pisa nel 2021 sono emersi materiali ceramici che indicano una frequentazione certa dell’area almeno dal II secolo d.C. fino all’età moderna (XVIII secolo)."
+            "description": "Il lago Casoli è di origine glaciale, si narra sia stato meta fin dalla preistoria come luogo 'magico', grazie all’atmosfera mistica attualmente percepibile. Da ricognizione estensiva realizzata dall’Università di Pisa nel 2021 sono emersi materiali ceramici che indicano una frequentazione certa dell’area almeno dal II secolo d.C. fino all’età moderna (XVIII secolo).",
+            "urlPrefix":"https://sites.google.com/view/prin-underlandscape/home-page/itinerari/QRcode-230607"
           },
           "geometry": {
             "type": "Point",
@@ -220,7 +231,8 @@
           "properties": {
             "fid": "qlci89",
             "name": "Madonna di Castello",
-            "description": "Lungo la strada acciottolata che ripercorre l’antica viabilità di collegamento dell’abitato con l’area sommitale del castello medievale, si incontrano i resti della cappella della Madonna di Castello. Risalente all’età moderna, è di piccole dimensioni e caratterizzata da un recinto d'ingresso, in facciata presenta panchine laterali all'apertura di ingresso che appare tamponata e rimaneggiata."
+            "description": "Lungo la strada acciottolata che ripercorre l’antica viabilità di collegamento dell’abitato con l’area sommitale del castello medievale, si incontrano i resti della cappella della Madonna di Castello. Risalente all’età moderna, è di piccole dimensioni e caratterizzata da un recinto d'ingresso, in facciata presenta panchine laterali all'apertura di ingresso che appare tamponata e rimaneggiata.",
+            "urlPrefix":"https://sites.google.com/view/prin-underlandscape/home-page/itinerari/QRcode-230607"
           },
           "geometry": {
             "type": "Point",
@@ -235,7 +247,8 @@
           "properties": {
             "fid": "3w44wr",
             "name": "Madonna di Col di Piano",
-            "description": "La cappella della Madonna di Col di Piano si trova lungo il sentiero CAI che conduce alla Penna di Lucchio. E’ un piccolo complesso con accogliente porticato riferibile alla tarda età moderna (XVII-XVIII secolo), oggi completamente intonacato e recentemente ristrutturato. All’interno ospita un affresco raffigurante la Madonna con bambino e un altare. Nei suoi pressi si trovano i ruderi di un edificio abitativo."
+            "description": "La cappella della Madonna di Col di Piano si trova lungo il sentiero CAI che conduce alla Penna di Lucchio. E’ un piccolo complesso con accogliente porticato riferibile alla tarda età moderna (XVII-XVIII secolo), oggi completamente intonacato e recentemente ristrutturato. All’interno ospita un affresco raffigurante la Madonna con bambino e un altare. Nei suoi pressi si trovano i ruderi di un edificio abitativo.",
+            "urlPrefix":"https://sites.google.com/view/prin-underlandscape/home-page/itinerari/QRcode-230607"
           },
           "geometry": {
             "type": "Point",
@@ -250,7 +263,8 @@
           "properties": {
             "fid": "sbgnl0",
             "name": "Metato",
-            "description": "Metato in stato di rudere con tettoia riferibile all’età contemporanea, utilizzato per l’essiccazione delle castagne. Tale edificio produttivo si riconosce per le piccole dimensioni e la caratteristica presenza di due piani suddivisi da un graticcio: quello inferiore era destinato al fuoco, mentre quello superiore, con accesso separato posto in quota, raggiungibile tramite una scala o una rampa, era utilizzato per caricare le castagne. Questa zona, come tutto l’Appennino, ha una lunga tradizione di coltura del castagno, definito “albero del pane”, rintracciabile fin dal Medioevo, un elemento fondamentale della dieta di montagna fino alla metà del 1900."
+            "description": "Metato in stato di rudere con tettoia riferibile all’età contemporanea, utilizzato per l’essiccazione delle castagne. Tale edificio produttivo si riconosce per le piccole dimensioni e la caratteristica presenza di due piani suddivisi da un graticcio: quello inferiore era destinato al fuoco, mentre quello superiore, con accesso separato posto in quota, raggiungibile tramite una scala o una rampa, era utilizzato per caricare le castagne. Questa zona, come tutto l’Appennino, ha una lunga tradizione di coltura del castagno, definito “albero del pane”, rintracciabile fin dal Medioevo, un elemento fondamentale della dieta di montagna fino alla metà del 1900.",
+            "urlPrefix":"https://sites.google.com/view/prin-underlandscape/home-page/itinerari/QRcode-230607"
           },
           "geometry": {
             "type": "Point",
@@ -265,7 +279,8 @@
           "properties": {
             "fid": "kwr1wx",
             "name": "Riparo sottoroccia lungo percorso Piella",
-            "description": "Sulla sinistra puoi osservare una piccola apertura che potrebbe esser stata utilizzata come riparo sottoroccia, sia nell’antichità che da viandanti della nostra epoca. Proseguendo dritto per circa 120 m troverai l’ingresso di Buca La Piella, procedere con attenzione nell’ultimo tratto."
+            "description": "Sulla sinistra puoi osservare una piccola apertura che potrebbe esser stata utilizzata come riparo sottoroccia, sia nell’antichità che da viandanti della nostra epoca. Proseguendo dritto per circa 120 m troverai l’ingresso di Buca La Piella, procedere con attenzione nell’ultimo tratto.",
+            "urlPrefix":"https://sites.google.com/view/prin-underlandscape/home-page/itinerari/QRcode-230607"
           },
           "geometry": {
             "type": "Point",
@@ -280,7 +295,8 @@
           "properties": {
             "fid": "fxq83v",
             "name": "Sant'Andrea de Lacu",
-            "description": "Secondo le fonti scritte, dove compaiono i toponimi Lacu e Lagovectio (anno 943), nell'area doveva essere presente un villaggio altomedievale, poi abbandonato in favore dell’attuale abitato di Casoli. Ne rimane la chiesa romanica di Sant’Andrea de Lacu, attestata dal 1260 come dipendente della pieve di Vico Pancellorum, ma di più antica fondazione. Oggi in stato di degrado, priva del tetto e con grave fessurazione in facciata, all'interno presenta un elemento di reimpiego della fabbrica precedente. Nei suoi pressi si trovano i resti di un edificio a pianta quadrangolare con muratura riferibile all’età medievale (XIII secolo), forse ad uso abitativo."
+            "description": "Secondo le fonti scritte, dove compaiono i toponimi Lacu e Lagovectio (anno 943), nell'area doveva essere presente un villaggio altomedievale, poi abbandonato in favore dell’attuale abitato di Casoli. Ne rimane la chiesa romanica di Sant’Andrea de Lacu, attestata dal 1260 come dipendente della pieve di Vico Pancellorum, ma di più antica fondazione. Oggi in stato di degrado, priva del tetto e con grave fessurazione in facciata, all'interno presenta un elemento di reimpiego della fabbrica precedente. Nei suoi pressi si trovano i resti di un edificio a pianta quadrangolare con muratura riferibile all’età medievale (XIII secolo), forse ad uso abitativo.",
+            "urlPrefix":"https://sites.google.com/view/prin-underlandscape/home-page/itinerari/QRcode-230607"
           },
           "geometry": {
             "type": "Point",
