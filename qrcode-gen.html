@@ -30,10 +30,10 @@ The default URL prefix of the links in the QR-tags:<br>
 <input id="urlPrefix" type="url" size=80 value="https://sites.google.com/view/prin-underlandscape/home-page/itinerari/"></input><br>
 <br>
 Your GeoJSON FeatureCollection:<br>
-<input id="geojsonName" type="file"></input><br>
+<input id="geojsonName" type="file" accept=".geojson"></input><br>
 <br>
 Your UMap template:<br>
-<input id="templateName" type="file"></input><br>
+<input id="templateName" type="file" accept=".umap"></input><br>
 <br>
 <button id="createUmapButton">Create UMap File</button>
 </div>
@@ -41,7 +41,7 @@ Your UMap template:<br>
 <div id='uploadUmap' style="display: none">
 <p>
 Upload your UMap file:<br>
-<input id="fileName" type="file"></input>
+<input id="fileName" type="file" accept=".umap"></input>
 </div>
 
 <div id='Download' style="display: none;">
@@ -1020,14 +1020,7 @@ document.getElementById('create').addEventListener('click', (e) => {
 
 // This is the uMap filename input to create the QR tags (QR creation option)
 document.getElementById('fileName').addEventListener('change', (e) => {
-   const filename = e.target.files[0];
-   // Check file type
-   const extension = filename.name.split('.').pop();
-   if ( extension !== "umap" ) {
-         alert ("Error: must be a uMap file!");
-         return; 
-   }
-   filename.text().then(
+   e.target.files[0].text().then(
     (text) => {
        scanGEOJson(text);
        document.getElementById('uploadUmap').style.display = "none";
@@ -1055,26 +1048,12 @@ document.getElementById('downloadButton').addEventListener('click', (e) => {
 
 // This is to indicate and acquire the file with the template (uMap creation option)
 document.getElementById('templateName').addEventListener('change', (e) => {
-   const filename = e.target.files[0];
-   // Check file type
-   const extension = filename.name.split('.').pop();
-   if ( extension !== "umap" ) {
-         alert ("Error: must be a uMap file!");
-         return; 
-   }
-   filename.text().then( text => template = JSON.parse(text) );
+   e.target.files[0].text().then( text => template = JSON.parse(text) );
 });
 
 // This is to indicate and acquire the file qith the geojson (uMap creation option)
 document.getElementById('geojsonName').addEventListener('change', (e) => {
-   const filename = e.target.files[0];
-   const extension = filename.name.split('.').pop();
-   if ( extension !== "geojson" ) {
-         alert ("Error: must be a geojson file!");
-         return; 
-   }
-   // Check file type
-   filename.text().then( text => geojson = JSON.parse(text) );
+   e.target.files[0].text().then( text => geojson = JSON.parse(text) );
 });
 
 // This is to store the generated umap file (uMap creation option)
