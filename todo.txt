@@ -2,24 +2,9 @@ todo list
 
 -) sostituire " con ' dove si può
 -) definire const quello che non è var :-)
--) verificare Node <-> Elemnt
--) suddividere in pagine 5x3 (?)
+-) verificare Node <-> Element
+-) suddividere in pagine 5x3 (serve?)
 -) estetica pagina (rivedere)
 -) eliminare funzioni libreria non utilizzate e aggiungere credits (rivedere)
 
-Appunti test template
-Produrre un umap senza livelli (il template qrtemplate.umap)
-Per salvare una mappa bisogna prima chiudere l'interfaccia (si può fare download anche dalla home)
-I punti vengono incollati nelle features del livello (non il livello intero)
-
-Creato a mano un template ricopiando properties, geometry e layers in una mappa nuova (QR template)
-Caricato il template in una mappa nuova e funziona ("tmp/qr_template (1).umap")
-Duplico il file ("tmp/qr_new.umap")
-Incollo le features le livello
-Visibile (ok)
-Modifica attributo name del layer (provapro.geojson)
-Viene sempre lasciato il layer0? provo a rimuoverlo
-Resiste (anche salvando sullo stesso livello e lasciando lo stesso nome (confusionario)
-Nome fisso "QR tags"
-
-QUINDI LE CARATTERISTICHE IMPORTANTI SONO QUELLE DEL LIVELLO, NON DELLA MAPPA
+NOTA su uMap: QUINDI LE CARATTERISTICHE IMPORTANTI (template ecc.) SONO QUELLE DEL LIVELLO, NON DELLA MAPPA

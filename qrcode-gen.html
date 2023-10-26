@@ -11,6 +11,9 @@
 body {}
 input {font: 1em "Times New Roman"}
 button {font: 1em "Times New Roman"}
+table, th, td {
+  border: 1px solid black;
+}
 </style>
 </head>
 
@@ -18,7 +21,7 @@ button {font: 1em "Times New Roman"}
 
 <div id=switch>
 <button id="create">Create UMap file from template</button><br>
-<button id="open">Open existing UMap file</button>
+<button id="open">Create tags from UMap file</button>
 </div>
 
 <div id='createUmap' style="display: none">
@@ -43,7 +46,10 @@ Upload your UMap file:<br>
 
 <div id='Download' style="display: none;">
 <p>
-Check the QR-tags and download if OK (otherwise reload)<br>
+Check the QR-tags and the links. Download and print the SVG if OK<br>
+(otherwise fix with the uMap editor and reload)<br>
+<table id='links'></table>
+<br>
 <button id="downloadButton" type="button">Download SVG file</button>
 </div>
 
@@ -945,46 +951,90 @@ function mktag (data, point, parent) {
    // Footer (credits)
    textsvg({x:115, y:735, size:15, font:'Verdana', text: 'Underlandscape'},tag);
    textsvg({x:115, y:755, size:15, font:'Verdana', text: 'Progetto di Ricerca di Interesse Nazionale MIUR - 2021'},tag);
+
+   
+   // Build the webpage and image URL
+   const pageURL=point.properties.urlPrefix+'/'+point.properties.fid;
+   const imageURL='https://drive.google.com/uc?id='+point.properties.imageTag;
+   // Build the check table
+   var p;
+   var c;
+   const checkItem = document.createElement('tr');
+   // First cell: tag title
+   c = document.createElement('td');
+   c.innerHTML=point.properties.name;
+   checkItem.appendChild(c);
+   // Second cell: link the web page
+   c = document.createElement('td');
+   p = document.createElement('a');
+   p.target="_blank";
+   p.href=pageURL;
+   p.innerHTML="Linked page";
+   c.appendChild(p);
+   checkItem.appendChild(c);
+   // Third cell: link to the image
+   c = document.createElement('td');
+   p = document.createElement('a');
+   p.target="_blank";
+   p.href=imageURL;
+   p.innerHTML="Linked image";
+   c.appendChild(p);
+   checkItem.appendChild(c);
+   
+   document.getElementById("links").appendChild(checkItem);
 }
 
 function scanGEOJson(text) {
-  data = JSON.parse(text).layers[0].features;
-  comboHeight = Math.ceil(data.length / comboWidth);
-  var tagComboElement = document.createElementNS("http://www.w3.org/2000/svg",'svg' );
-  tagComboElement.setAttribute( 'viewBox', '0 0 '+(tagWidth*comboWidth)+' '+(tagHeight*comboHeight));
-  tagComboNode = document.body.appendChild(tagComboElement);
-  
-  data.forEach( (point,i) => {
-     mktag({
-        'width': 715, 
-        'height': 860, 
-        'x': tagWidth*(i%comboWidth), 
-        'y': tagHeight*Math.trunc(i/comboWidth) 
-        },
-        point,
-        tagComboNode);
-     }
-  );
+   var data;
+   JSON.parse(text).layers.map( l => l.features.length && ( data = l.features ) );
+//   data = JSON.parse(text).layers[1].features;
+   comboHeight = Math.ceil(data.length / comboWidth);
+   var tagComboElement = document.createElementNS("http://www.w3.org/2000/svg",'svg' );
+   tagComboElement.setAttribute( 'viewBox', '0 0 '+(tagWidth*comboWidth)+' '+(tagHeight*comboHeight));
+   tagComboNode = document.body.appendChild(tagComboElement);
+   console.log(data);
+   data.forEach( (point,i) => {
+      mktag({
+         'width': 715, 
+         'height': 860, 
+         'x': tagWidth*(i%comboWidth), 
+         'y': tagHeight*Math.trunc(i/comboWidth) 
+         },
+         point,
+         tagComboNode);
+      }
+   );
 }
 
+// This is QR tags generation button in the initial switch div  
 document.getElementById('open').addEventListener('click', (e) => {
    document.getElementById('switch').style.display = "none";
    document.getElementById('uploadUmap').style.display = "block";
 })
 
+// This is uMap file creation button in the initial switch div  
 document.getElementById('create').addEventListener('click', (e) => {
    document.getElementById('switch').style.display = "none";
    document.getElementById('createUmap').style.display = "block";
 })
 
+// This is the uMap filename input to create the QR tags (QR creation option)
 document.getElementById('fileName').addEventListener('change', (e) => {
-  e.target.files[0].text().then(
+   const filename = e.target.files[0];
+   // Check file type
+   const extension = filename.name.split('.').pop();
+   if ( extension !== "umap" ) {
+         alert ("Error: must be a uMap file!");
+         return; 
+   }
+   filename.text().then(
     (text) => {
        scanGEOJson(text);
        document.getElementById('uploadUmap').style.display = "none";
        document.getElementById('Download').style.display = "block";
     });});
 
+// This is the button to download the tags combo (QR creation option)
 document.getElementById('downloadButton').addEventListener('click', (e) => {
    document.getElementById('Download').style.display = "none";
    const blob = new Blob([tagComboNode.outerHTML]);
@@ -1002,6 +1052,8 @@ document.getElementById('downloadButton').addEventListener('click', (e) => {
    document.getElementById('goodBye').innerHTML += "<br><br>Good bye (reload the page to produce new QR-codes)";
 });
 
+
+// This is to indicate and acquire the file with the template (uMap creation option)
 document.getElementById('templateName').addEventListener('change', (e) => {
    const filename = e.target.files[0];
    // Check file type
@@ -1013,6 +1065,7 @@ document.getElementById('templateName').addEventListener('change', (e) => {
    filename.text().then( text => template = JSON.parse(text) );
 });
 
+// This is to indicate and acquire the file qith the geojson (uMap creation option)
 document.getElementById('geojsonName').addEventListener('change', (e) => {
    const filename = e.target.files[0];
    const extension = filename.name.split('.').pop();
@@ -1024,6 +1077,7 @@ document.getElementById('geojsonName').addEventListener('change', (e) => {
    filename.text().then( text => geojson = JSON.parse(text) );
 });
 
+// This is to store the generated umap file (uMap creation option)
 document.getElementById('createUmapButton').addEventListener('click', (e) => {
    document.getElementById('createUmap').style.display = "none";
    const urlPrefix = document.getElementById('urlPrefix').value;
@@ -1031,15 +1085,16 @@ document.getElementById('createUmapButton').addEventListener('click', (e) => {
    template.layers[0].features = geojson.features;
    template.layers[0].features.forEach( f => {
       if ( ! f.hasOwnProperty('properties') ) { 
-         f.properties = {name: "", description: "", urlPrefix: urlPrefix, fid: fid };
+         f.properties = {name: "", description: "", urlPrefix: urlPrefix, fid: fid, imageTag: "" };
       } else {
          if ( ! f.properties.hasOwnProperty('name') ) { f.properties.name = ""; }
          if ( ! f.properties.hasOwnProperty('description') ) { f.properties.description = ""; }
+         if ( ! f.properties.hasOwnProperty('imageTag') ) { f.properties.imageTag = ""; }
          if ( ! f.properties.hasOwnProperty('urlPrefix') ) { f.properties.urlPrefix = urlPrefix; }
-         if ( ! f.properties.hasOwnProperty('fid') ) { f.properties.urlPrefix = fid; }
+         if ( ! f.properties.hasOwnProperty('fid') ) { f.properties.fid = fid; }
       }
    } ) 
-   
+   // Download
    const blob=new Blob([JSON.stringify(template)]);
    const element = document.createElement("a");
    element.download = "map.umap";

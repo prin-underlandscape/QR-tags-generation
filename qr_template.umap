@@ -51,12 +51,11 @@
         "editMode": "advanced",
         "name": "QR tags",
         "remoteData": {},
-        "popupContentTemplate": "",
+        "popupContentTemplate": "# {name}\n{description}\n\n{{https://drive.google.com/uc?id={imageTag}|300}}\n\nLink: {urlPrefix}/{fid}",
         "showLabel": null,
         "iconClass": "Ball",
         "color": "DarkRed",
-        "popupShape": "Panel",
-        "popupTemplate": "Table"
+        "popupShape": "Panel"
       }
     }
   ]
