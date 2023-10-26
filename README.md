@@ -10,15 +10,17 @@ There are two operation options available, that are selected in the opening dial
 
 ### Create uMap file from template
 Three data are required in a dialog:
+
 * the prefix of the URL linked to the QR tag;
 * the geoJSON file containing the point features to be included in the map;
 * the uMap file with to configure the visualization on the uMap service.
 
 The tool creates a new uMap file using the geoJSON file containing a *featureCollection* with all the *Points* in the map. The tool integrates the points with the properties needed to create and visualize a QR tag. The properties are the following:
+
 * name: the title of the QR tag, usually the name of the location;
 * description: the description encoded in the tag;
-* fid: the unique, random identifier associated with the tag. It is used to generate the URL of the associated Web page;
 * urlPrefix: the prefix for the URL of the associated Web page;
+* fid: the unique, random identifier associated with the tag. It is used to generate the URL of the associated Web page;
 * imageTag: the variable part of the link to the associated image in the Google drive. It is the part here highlighted: drive.google.com/file/d/ **1OgXyEO1g_Jq7rvVQX0otMgPOrCfGLqvZ** /view?usp=sharing;
 
 In case the fields are already present they are left untouched. Otherwise, they are created and filled with a default value: the *fid* receives a new random six characters id, the *urlPrefix* is set to the value indicated by the user in the dialog, and the other fields (*name*, *description* and *title*) are initialized to the empty string.
@@ -32,13 +34,16 @@ Pressing the Download button the image is downloaded. The user is prompted with 
 
 ### Suggested workflow.
 
-* The workflow starts with a geoJSON containing a feature collection with points. This can be generated in any way: by hand, using tools like QGis, uMap, or GaiaGPS or converted from other formats (Google Maps).
+
+
+1. The workflow starts with a geoJSON containing a feature collection with points. This can be generated in any way: by hand, using tools like QGis, uMap, or GaiaGPS or converted from other formats (Google Maps).
 The geoJSON file is processed with qrcode-gen.html using the Create uMap option-
-* The output file is loaded into a new uMap map, and the empty fields are filled with user information and the result is downloaded as a uMap file ("Full Map"), and overwritten to the original geoJSON
-* The file is processed with qrcode-gen.html using the Create Tags option. All the links in the table should be checked for consistency and the tags review should be visually checked and possibly scanned.
-* The svg file produced in the previous step is saved and printed using the information provided on-screen.
+1. The output file is loaded into a new uMap map, and the empty fields are filled with user information and the result is downloaded as a uMap file ("Full Map"), and overwritten to the original geoJSON
+1. The file is processed with qrcode-gen.html using the Create Tags option. All the links in the table should be checked for consistency and the tags review should be visually checked and possibly scanned.
+1. The svg file produced in the previous step is saved and printed using the information provided on-screen.
 
 The files to be archived are:
+
 * the geoJSON file, which is useful to replace the original uMap template and rebuild a map;
 * the uMap template file, useful to rebuild the uMap file and for reuse in other itineraries;
 * the uMap file, useful to rebuild the map delivered by the uMap service
