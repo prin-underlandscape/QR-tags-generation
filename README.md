@@ -39,8 +39,10 @@ The geoJSON file is processed with qrcode-gen.html using the Create uMap option-
 * The svg file produced in the previous step is saved and printed using the information provided on-screen.
 
 The files to be archived are:
-- the geoJSON file, which is useful to replace the original uMap template and rebuild a map;
-- the uMap template file, useful to rebuild the uMap file and for reuse in other itineraries;
-- the uMap file, useful to rebuild the map delivered by the uMap service
-- the tags.svg file, useful to produce further copies
-- the uMap file,  
+* the geoJSON file, which is useful to replace the original uMap template and rebuild a map;
+* the uMap template file, useful to rebuild the uMap file and for reuse in other itineraries;
+* the uMap file, useful to rebuild the map delivered by the uMap service
+* the tags.svg file, useful to produce further copies
+* the uMap file,  
+
+The steps above can be repeated in part, in the same order. In particular, steps 3-4 can be iterated to fix issues in the map. The loss or deterioration of the map shown on uMap can be fixed repeating steps 2-3-4. In case the uMap template is modified (e.g., to modify the animation in the uMap visualization) the whole process is repeated. Each time one of the above processes is executed the resulting files should be properly archived and the need to replace the QR tags should be evaluated.
